@@ -16,10 +16,24 @@ defmodule Practice do
     Practice.Calc.calc(expr)
   end
 
-  def factor(x) do
-    # Maybe delegate this too.
-    [1,2,x]
+  def factorhelp(x,ac,cur) do
+    cond do
+      x < 2 ->
+        ac ++ [x]
+      cur > x / 2 -> 
+        ac ++ [x]
+      rem(x,cur) === 0 ->
+        Practice.factorhelp(div(x, cur), ac ++ [cur], 2)
+      true -> 
+        Practice.factorhelp(x, ac, cur + 1)
+    end
   end
 
-  # TODO: Add a palindrome? function.
+  def factor(x) do
+    Practice.factorhelp(x,[],2)
+  end
+
+  def palindrome(expr) do
+    Practice.Palindrome.palindrome(expr)
+  end
 end

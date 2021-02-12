@@ -1,24 +1,49 @@
 defmodule Practice.Calc do
-  def parse_float(text) do
-    {num, _} = Float.parse(text)
-    num
+  def doop(val1,op,val2) do
+    cond do
+      op === "+" ->
+        Float.to_string(elem(Float.parse(val1),0) + elem(Float.parse(val2),0))
+      op === "-" ->
+        Float.to_string(elem(Float.parse(val1),0) - elem(Float.parse(val2),0))
+      op === "*" ->
+        Float.to_string(elem(Float.parse(val1),0) * elem(Float.parse(val2),0))
+      op === "/" ->
+        Float.to_string(elem(Float.parse(val1),0) / elem(Float.parse(val2),0))
+    end
   end
 
-  def calc(expr) do
-    # This should handle +,-,*,/ with order of operations,
-    # but doesn't need to handle parens.
-    expr
-    |> String.split(~r/\s+/)
-    |> hd
-    |> parse_float
-    |> :math.sqrt()
+  def calchelp(expr,curval,curop) do
+    cond do
+      expr == [] ->
+        curval
+      Regex.match?(~r/^\d+$/, hd(expr)) ->
+        if curval === "" do
+          calchelp(tl(expr),hd(expr),curop)
+        else
+          calchelp(tl(expr),doop(curval,curop,hd(expr)),curop)
+        end
+      #operation case
+      true ->
+        calchelp(tl(expr),curval, hd(expr))
+    end
+  end
 
-    # Hint:
-    # expr
-    # |> split
-    # |> tag_tokens  (e.g. [+, 1] => [{:op, "+"}, {:num, 1.0}]
-    # |> convert to postfix
-    # |> reverse to prefix
-    # |> evaluate as a stack calculator using pattern matching
+  def betterlist(exprlist, curval, result) do
+    cond do
+      exprlist == [] ->
+        result ++ [curval]
+      hd(exprlist) === " " ->
+        betterlist(tl(exprlist), curval, result)
+      Regex.match?(~r/^\d+$/, hd(exprlist)) ->
+        betterlist(tl(exprlist),curval <> hd(exprlist), result)
+      # operation case
+      true ->
+        betterlist(tl(exprlist), "", result ++ [curval, hd(exprlist)])
+    end
+  end
+    
+  def calc(expr) do
+    elem(Float.parse(calchelp(betterlist(String.graphemes(expr),"",[]), "", "")),0)
   end
 end
+
