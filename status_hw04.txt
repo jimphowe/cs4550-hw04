@@ -1,0 +1,53 @@
+Please fill in answers to the questions below:
+
+
+1. What's your name?
+
+Hartley (Jim) Howe
+
+
+2. What hostname did you deploy your app to?
+
+hw04.jim-howe.com
+
+
+3. What's the URL of your git for this assignment?
+
+https://github.com/jimphowe/cs4550-hw04
+
+
+4. How much of the functionality did you complete?
+
+All of it except for order of operations on the calculator : (
+
+
+5. Did you successfully deploy? If not, what's broken?
+
+Not quite... When you click evaluate for 'factor' and 'palindrome' it returns
+'Internal Server Error', even though it works and displays when run locally
+with 'mix phx.server', and passes the tests.
+
+
+6. How comfortable do you feel with Elixir now?
+
+Somewhat comfortable actually, the Elixir school was very helpful. Much
+less comfortable with Phoenix though.
+
+
+7. Which parts of this assignment did you have trouble with, if any?
+
+Learning Phoenix and Elixir. Weird deployment issue I never solved. This
+was the hardest one so far for me for sure.
+
+
+
+
+And here's a list of tasks for grading comments. Just leave this here:
+ - Task 1
+ - Task 2
+ - Task 3
+ - Task 4
+ - Task 5
+ - Task 6
+ - Task 7
+ - Task 8
